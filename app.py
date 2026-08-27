@@ -8,7 +8,7 @@ import pandas as pd
 from cryptography.hazmat.primitives.asymmetric import ec
 from cryptography.hazmat.primitives import hashes
 
-# Page Configuration - Set Wide layout with dark background
+# Page Configuration - Set Wide layout
 st.set_page_config(
     page_title="SENTINEL PRIVACY VAULT (ID-304)",
     page_icon="🛡️",
@@ -16,14 +16,14 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# Custom High-End Cyber-Medical CSS to match Sentinel Privacy Vault UI
+# Custom High-End Cyber-Medical CSS
 st.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
 
     .stApp {
-        background-color: #0a0a0c !important;
-        color: #f8fafc !important;
+        background-color: #0a0a0c;
+        color: #f8fafc;
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     }
     header[data-testid="stHeader"] { background: transparent !important; }
@@ -31,9 +31,10 @@ st.markdown("""
 
     .vault-navbar {
         background-color: #0d0d12;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
         padding: 16px 24px;
-        margin: -4rem -4rem 1.5rem -4rem;
+        margin-bottom: 1.5rem;
         display: flex;
         align-items: center;
         justify-content: space-between;

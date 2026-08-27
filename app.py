@@ -160,7 +160,7 @@ with tabs[0]:
     
     with col_t1:
         # Time-series attack trend chart
-        dates = pd.date_range(end=datetime.now(), periods=12, freq='H')
+        dates = pd.date_range(end=datetime.now(), periods=12, freq='h')
         attack_data = pd.DataFrame({
             "Time": dates,
             "FHIR BOLA Probes": [45, 62, 80, 110, 95, 140, 210, 180, 160, 230, 290, 310],

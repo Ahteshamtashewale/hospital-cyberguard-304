@@ -23,6 +23,7 @@ A full-stack, enterprise-grade Hospital Cybersecurity, Medical Record Integrity,
   - [Installation](#installation)
   - [Environment Variables](#environment-variables)
   - [Development Server](#development-server)
+  - [Deploy to Streamlit Cloud](#deploy-to-streamlit-cloud)
   - [Production Build](#production-build)
 - [GitHub Workflow & CI/CD](#github-workflow--cicd)
 - [Compliance & Regulatory Alignment](#compliance--regulatory-alignment)
@@ -143,6 +144,20 @@ npm run dev
 ```
 
 The application will be accessible at: `http://localhost:3000`
+
+### Deploy to Streamlit Cloud
+
+You can deploy this application directly to **Streamlit Community Cloud** in 3 steps:
+
+1. Push this repository to your GitHub account (`ahteshamtashewale/your-repo-name`).
+2. Go to [share.streamlit.io](https://share.streamlit.io/) and log in with GitHub.
+3. Click **"New app"**, select your repository, set Main file path to `app.py`, and click **Deploy**!
+
+To run Streamlit locally on your machine:
+```bash
+pip install -r requirements.txt
+streamlit run app.py
+```
 
 ### Production Build
 

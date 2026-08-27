@@ -1,6 +1,0 @@
-{
-  "name": "Hospital CyberGuard & Data Privacy (ID-304)",
-  "description": "Comprehensive hospital cybersecurity & data privacy suite: API vulnerability scanners, IoMT firmware & HSM security, cryptographic medical record verification, zero-trust IAM, AI threat intelligence, and DPDP/HIPAA compliance.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}

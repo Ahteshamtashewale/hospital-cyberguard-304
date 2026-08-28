@@ -156,7 +156,6 @@ st.markdown("""
 # Tabs
 active_count = len([t for t in st.session_state.threats if t["status"] == "ACTIVE"])
 tabs = st.tabs([
-    "🌟 Guest & Executive Overview",
     f"⚡ SOC Threat Monitor ({active_count} Active)",
     "📡 FHIR API Scanner",
     "✍️ Record Integrity & Signatures",
@@ -166,43 +165,8 @@ tabs = st.tabs([
     "⚖️ DPDP & HIPAA Governance"
 ])
 
-# ================= TAB 0: GUEST & EXECUTIVE OVERVIEW =================
+# ================= TAB 0: SOC THREAT MONITOR =================
 with tabs[0]:
-    st.markdown("""
-    <div style="background: linear-gradient(135deg, #0e172e 0%, #111420 100%); border: 1px solid rgba(59, 130, 246, 0.4); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem;">
-        <span class="badge-secure" style="font-size:0.8rem; background:rgba(59,130,246,0.2); color:#93c5fd; border:1px solid rgba(59,130,246,0.4);">PROJECT ID-304 • GUEST TOUR</span>
-        <h2 style="font-family:'Cinzel', serif; color:#ffffff; margin-top:8px;">Hospital CyberGuard & Data Privacy Governance Suite</h2>
-        <p style="color:#cbd5e1; font-size:0.95rem; line-height:1.6;">
-            A complete clinical cybersecurity platform designed to protect patient lives, medical IoT devices (ventilators & pumps), and electronic health records from ransomware, BOLA API leaks, and illegal prescription tampering.
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
-
-    col_g1, col_g2, col_g3 = st.columns(3)
-    with col_g1:
-        st.markdown("""
-        <div class="sentinel-card">
-            <h4 style="color:#4ade80;">1. 100% Tamper-Proof Records</h4>
-            <p style="font-size:0.85rem; color:#94a3b8;">Uses ECDSA P-256 digital signatures & SHA-256 hash checks to stop medication dose alterations before pharmacy dispensing.</p>
-        </div>
-        """, unsafe_allow_html=True)
-    with col_g2:
-        st.markdown("""
-        <div class="sentinel-card">
-            <h4 style="color:#38bdf8;">2. Medical Device (IoMT) Shield</h4>
-            <p style="font-size:0.85rem; color:#94a3b8;">Hardware Security Module (HSM) root-of-trust isolates compromised ventilators into sandboxed VLANs in <45ms.</p>
-        </div>
-        """, unsafe_allow_html=True)
-    with col_g3:
-        st.markdown("""
-        <div class="sentinel-card">
-            <h4 style="color:#a78bfa;">3. Zero-Trust & Break-Glass</h4>
-            <p style="font-size:0.85rem; color:#94a3b8;">Strict least-privilege ABAC combined with sub-50ms life-saving emergency bypass for Code-Blue cardiac trauma resuscitations.</p>
-        </div>
-        """, unsafe_allow_html=True)
-
-# ================= TAB 1: SOC THREAT MONITOR =================
-with tabs[1]:
     st.subheader("⚡ Real-Time SIEM Threat Radar & Incident Mitigation")
     col_t1, col_t2 = st.columns([3, 1])
     with col_t2:
@@ -243,8 +207,8 @@ with tabs[1]:
                 st.success(f"{threat['id']} contained on hospital firewall!")
                 st.rerun()
 
-# ================= TAB 2: API SCANNER =================
-with tabs[2]:
+# ================= TAB 1: API SCANNER =================
+with tabs[1]:
     st.subheader("🔍 FHIR REST API Vulnerability & Pentesting Studio")
     endpoint = st.selectbox("FHIR Resource Endpoint", ["/api/fhir/Patient/PT-44029", "/api/fhir/Observation?patient=PT-44029", "/api/fhir/MedicationRequest"])
     test_vector = st.radio("OWASP Threat Vector", ["API1:2023 Broken Object Level Authorization (BOLA)", "API3:2023 Mass Assignment", "API4:2023 Rate Limit"])
@@ -252,8 +216,8 @@ with tabs[2]:
         st.error("🚨 VULNERABILITY DETECTED: Broken Object Level Authorization (BOLA)")
         st.code(json.dumps({"rule_id": "WAF-FHIR-BOLA-DEFENSE-304", "action": "DENY_UNLESS_ABAC_VERIFIED"}, indent=2), language="json")
 
-# ================= TAB 3: CRYPTO RECORDS =================
-with tabs[3]:
+# ================= TAB 2: CRYPTO RECORDS =================
+with tabs[2]:
     st.subheader("✍️ Cryptographic Medical Record Integrity & Tamper Detector")
     pid = st.text_input("Patient ID", value="PT-90412")
     pname = st.text_input("Patient Name", value="Alexander Wright")
@@ -269,22 +233,22 @@ with tabs[3]:
     elif "locked_hash" in st.session_state:
         st.error("🚨 TAMPERING DETECTED! HASH MISMATCH (Signature Broken)")
 
-# ================= TAB 4: PHISHING =================
-with tabs[4]:
+# ================= TAB 3: PHISHING =================
+with tabs[3]:
     st.subheader("🧠 AI-Powered Healthcare Phishing & Social Engineering Dissector")
     email_text = st.text_area("Inbound Message", value="URGENT: Re-authenticate clinical SmartCard within 2 hours at http://hospital-secure-login.net/auth")
     if st.button("🔬 Dissect with AI Security Engine", type="primary"):
         st.error("🚨 HIGH CONFIDENCE PHISHING ATTEMPT (99.4% Probability) - MITRE T1566")
 
-# ================= TAB 5: ZERO TRUST =================
-with tabs[5]:
+# ================= TAB 4: ZERO TRUST =================
+with tabs[4]:
     st.subheader("🚨 Zero-Trust IAM & Code-Blue Break-Glass Access")
     reason = st.text_input("Emergency Resuscitation Justification", placeholder="Code Blue Ward 4B - Traumatic Cardiac Arrest")
     if st.button("🚨 TRIGGER EMERGENCY BREAK-GLASS ACCESS", type="primary"):
         st.warning(f"EMERGENCY OVERRIDE ACTIVATED: {reason} (Audit log generated under HIPAA §164.312)")
 
-# ================= TAB 6: IOMT HSM =================
-with tabs[6]:
+# ================= TAB 5: IOMT HSM =================
+with tabs[5]:
     st.subheader("💉 IoMT Hardware Fleet & HSM Cryptographic Enclave")
     st.dataframe(pd.DataFrame([
         {"Device": "Alaris Infusion Pump #12", "Firmware": "v3.2.1-SEC", "Status": "ONLINE", "Safeguard": "HSM Verified"},
@@ -292,8 +256,8 @@ with tabs[6]:
         {"Device": "Fresenius Dialysis #09", "Firmware": "v2.1.0-LEGACY", "Status": "QUARANTINED", "Safeguard": "VLAN Sandbox"}
     ]), use_container_width=True)
 
-# ================= TAB 7: DPDP & HIPAA =================
-with tabs[7]:
+# ================= TAB 6: DPDP & HIPAA =================
+with tabs[6]:
     st.subheader("⚖️ DPDP Act 2023 & HIPAA 18-PHI Safe Harbor Studio")
     sample_ehr = st.text_area(
         "Input Raw Medical Record (Contains Protected Health Information)",

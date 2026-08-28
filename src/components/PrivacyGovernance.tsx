@@ -14,7 +14,6 @@ import {
   FileCheck,
 } from "lucide-react";
 import { deIdentifyClinicalText } from "../utils/crypto";
-import { GuestExplainerBanner } from "./GuestExplainerBanner";
 
 export const PrivacyGovernance: React.FC = () => {
   const [selectedFramework, setSelectedFramework] = useState<"DPDP" | "HIPAA" | "GDPR">("DPDP");
@@ -71,14 +70,6 @@ Clinical Impression: Patient presented to Metro Health Mumbai on Aug 27, 2026 wi
 
   return (
     <div className="space-y-6">
-      {/* Guest Explainer Banner */}
-      <GuestExplainerBanner
-        title="Patient Data Privacy & DPDP / HIPAA Compliance"
-        whatItDoes="Automatically strips patient names, national IDs, and phone numbers from medical charts so researchers can study data without compromising privacy."
-        whyItMatters="Protects patient dignity and prevents multi-million dollar penalties under India's DPDP Act 2023 and US HIPAA."
-        quickTryAction="Scroll down to 'PHI De-Identification Studio' to see how sensitive patient names (Rohan Verma, Aadhaar, Phone) are automatically masked in real-time."
-      />
-
       {/* Header */}
       <div className="bg-[#0d0d12] border border-white/10 rounded-xl p-5 shadow-xl">
         <div className="flex flex-wrap items-center justify-between gap-4">

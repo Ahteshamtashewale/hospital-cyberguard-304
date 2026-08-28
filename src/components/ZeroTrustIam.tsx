@@ -15,7 +15,6 @@ import {
   History,
 } from "lucide-react";
 import { AccessRequest } from "../types";
-import { GuestExplainerBanner } from "./GuestExplainerBanner";
 
 export const ZeroTrustIam: React.FC = () => {
   const [role, setRole] = useState<AccessRequest["role"]>("ATTENDING_PHYSICIAN");
@@ -145,14 +144,6 @@ export const ZeroTrustIam: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      {/* Guest Explainer Banner */}
-      <GuestExplainerBanner
-        title="Zero-Trust IAM & Emergency Break-Glass"
-        whatItDoes="Ensures only verified doctors and nurses can view patient data, while allowing a life-saving 'Break-Glass' emergency override during cardiac arrests that logs the doctor's license."
-        whyItMatters="Stops unauthorized staff or hackers from snooping on patient charts, but never delays a doctor trying to save a dying patient."
-        quickTryAction="Switch Role to 'Billing Auditor' and Resource to 'EHR Patient Chart' to see it blocked. Then toggle 'Code-Blue Break-Glass Emergency' to watch instant emergency override unlock."
-      />
-
       {/* Header */}
       <div className="bg-[#0d0d12] border border-white/10 rounded-xl p-5 shadow-xl">
         <div className="flex flex-wrap items-center justify-between gap-4">

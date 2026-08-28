@@ -16,7 +16,6 @@ import {
 } from "lucide-react";
 import { sampleIoMTFleet } from "../data/mockData";
 import { IoMTDevice } from "../types";
-import { GuestExplainerBanner } from "./GuestExplainerBanner";
 
 export const IoMTHardwareSecurity: React.FC = () => {
   const [fleet, setFleet] = useState<IoMTDevice[]>(sampleIoMTFleet);
@@ -113,14 +112,6 @@ export const IoMTHardwareSecurity: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      {/* Guest Explainer Banner */}
-      <GuestExplainerBanner
-        title="Smart Medical Device (IoMT) & Hardware Security"
-        whatItDoes="Monitors connected ICU ventilators, infusion pumps, and heart monitors to guarantee they only run verified, unhacked hospital software."
-        whyItMatters="If a hacker tampers with an ICU ventilator or infusion pump over the hospital Wi-Fi, patient life support could be interrupted."
-        quickTryAction="Click 'Simulate Tamper' on the Smart Ventilator below. Watch the system instantly detect the anomalous firmware and trigger automatic network quarantine!"
-      />
-
       {/* Header */}
       <div className="bg-[#0d0d12] border border-white/10 rounded-xl p-5 shadow-xl">
         <div className="flex flex-wrap items-center justify-between gap-4">

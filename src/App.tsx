@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import { TabType, ThreatEvent } from "./types";
 import { initialThreats } from "./data/mockData";
 import { Navbar } from "./components/Navbar";
-import { GuestOverview } from "./components/GuestOverview";
-import { GuestTourModal } from "./components/GuestTourModal";
-import { EvaluatorGuideModal } from "./components/EvaluatorGuideModal";
 import { SocDashboard } from "./components/SocDashboard";
 import { ApiScanner } from "./components/ApiScanner";
 import { CryptoVerifier } from "./components/CryptoVerifier";
@@ -16,11 +13,9 @@ import { GitHubExport } from "./components/GitHubExport";
 import { Shield, X } from "lucide-react";
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<TabType>("guest_overview");
+  const [activeTab, setActiveTab] = useState<TabType>("soc_dashboard");
   const [threats, setThreats] = useState<ThreatEvent[]>(initialThreats);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
-  const [isTourOpen, setIsTourOpen] = useState<boolean>(false);
-  const [isEvaluatorGuideOpen, setIsEvaluatorGuideOpen] = useState<boolean>(false);
 
   const showToast = (msg: string) => {
     setToastMessage(msg);
@@ -90,33 +85,10 @@ STATUS: Intercepted by Hospital Zero-Trust AI Gateway. Awaiting Operator Action.
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         threatCount={threats.filter((t) => t.status === "ACTIVE").length}
-        onOpenTour={() => {
-          setIsEvaluatorGuideOpen(false);
-          setIsTourOpen(true);
-        }}
-        onOpenEvaluatorGuide={() => {
-          setIsTourOpen(false);
-          setIsEvaluatorGuideOpen(true);
-        }}
       />
 
       {/* Main Container */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        {activeTab === "guest_overview" && (
-          <GuestOverview
-            onNavigateTab={setActiveTab}
-            onOpenTour={() => {
-              setIsEvaluatorGuideOpen(false);
-              setIsTourOpen(true);
-            }}
-            onOpenEvaluatorGuide={() => {
-              setIsTourOpen(false);
-              setIsEvaluatorGuideOpen(true);
-            }}
-            threatCount={threats.filter((t) => t.status === "ACTIVE").length}
-          />
-        )}
-
         {activeTab === "soc_dashboard" && (
           <SocDashboard
             threats={threats}
@@ -139,26 +111,6 @@ STATUS: Intercepted by Hospital Zero-Trust AI Gateway. Awaiting Operator Action.
 
         {activeTab === "github_export" && <GitHubExport />}
       </main>
-
-      {/* Evaluator Guide & Presentation Modal */}
-      <EvaluatorGuideModal
-        isOpen={isEvaluatorGuideOpen}
-        onClose={() => setIsEvaluatorGuideOpen(false)}
-        onNavigateTab={(tab) => {
-          setActiveTab(tab);
-          setIsEvaluatorGuideOpen(false);
-        }}
-      />
-
-      {/* Interactive Step-by-Step Guest Guided Tour Modal */}
-      <GuestTourModal
-        isOpen={isTourOpen}
-        onClose={() => setIsTourOpen(false)}
-        onNavigateTab={(tab) => {
-          setActiveTab(tab);
-          setIsTourOpen(false);
-        }}
-      />
 
       {/* Toast Notification */}
       {toastMessage && (

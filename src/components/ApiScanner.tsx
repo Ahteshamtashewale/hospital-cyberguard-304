@@ -16,7 +16,6 @@ import {
 } from "lucide-react";
 import { sampleApiEndpoints } from "../data/mockData";
 import { ApiEndpoint } from "../types";
-import { GuestExplainerBanner } from "./GuestExplainerBanner";
 
 export const ApiScanner: React.FC = () => {
   const [endpoints] = useState<ApiEndpoint[]>(sampleApiEndpoints);
@@ -87,14 +86,6 @@ export const ApiScanner: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      {/* Guest Explainer Banner */}
-      <GuestExplainerBanner
-        title="Healthcare API Vulnerability Scanner"
-        whatItDoes="Scans hospital data channels (FHIR/HL7 endpoints) to find security flaws before external hackers can exploit them to leak patient records."
-        whyItMatters="APIs are how medical apps and lab machines talk to each other; if an API has a bug, patient health records can leak onto the internet."
-        quickTryAction="Click 'Run OWASP API Security Scan' at the top right to scan this patient data API for security vulnerabilities and auto-remediation."
-      />
-
       {/* Intro Header */}
       <div className="bg-[#0d0d12] border border-white/10 rounded-xl p-5 shadow-xl">
         <div className="flex flex-wrap items-center justify-between gap-4">

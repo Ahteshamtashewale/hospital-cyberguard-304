@@ -1,5 +1,4 @@
 export type TabType =
-  | "guest_overview"
   | "soc_dashboard"
   | "api_scanner"
   | "crypto_verifier"

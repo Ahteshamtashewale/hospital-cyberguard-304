@@ -15,6 +15,7 @@ import {
   FileSpreadsheet,
 } from "lucide-react";
 import { ThreatEvent } from "../types";
+import { GuestExplainerBanner } from "./GuestExplainerBanner";
 
 interface SocDashboardProps {
   threats: ThreatEvent[];
@@ -64,6 +65,14 @@ export const SocDashboard: React.FC<SocDashboardProps> = ({
 
   return (
     <div className="space-y-6">
+      {/* Guest Explainer Banner */}
+      <GuestExplainerBanner
+        title="24/7 Hospital SOC Threat Monitor"
+        whatItDoes="Live cybersecurity radar that detects attacks on hospital servers, radiology archives, and pharmacy dispensing networks in real-time."
+        whyItMatters="Stops ransomware hackers from locking up hospital systems or stealing thousands of patient records."
+        quickTryAction="Click 'Simulate New Attack' on the right, then select the new alarm and click 'Contain Threat' to isolate the hacker immediately."
+      />
+
       {/* Top Metrics Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="bg-[#0d0d12] border border-white/10 rounded-xl p-5 shadow-xl relative overflow-hidden group hover:border-white/20 transition-all">

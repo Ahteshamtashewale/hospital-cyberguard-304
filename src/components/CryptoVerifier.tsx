@@ -21,6 +21,7 @@ import {
   signMedicalDocument,
   verifyMedicalDocument,
 } from "../utils/crypto";
+import { GuestExplainerBanner } from "./GuestExplainerBanner";
 
 export const CryptoVerifier: React.FC = () => {
   const [doc, setDoc] = useState<MedicalRecordDoc>(sampleMedicalDocument);
@@ -176,6 +177,14 @@ export const CryptoVerifier: React.FC = () => {
 
   return (
     <div className="space-y-6">
+      {/* Guest Explainer Banner */}
+      <GuestExplainerBanner
+        title="Tamper-Proof Medical Records & Digital Signatures"
+        whatItDoes="Every prescription and medical chart is locked with the doctor's cryptographic digital key (ECDSA). If anyone modifies a single letter or dose in the database, the signature breaks instantly."
+        whyItMatters="Prevents fatal drug overdoses, illegal prescription forging, and fraudulent alterations of patient diagnoses."
+        quickTryAction="Edit the 'Diagnosis' or 'Prescription' text box below on the left. Watch the right-hand panel instantly turn RED with a cryptographic tamper alarm!"
+      />
+
       {/* Header */}
       <div className="bg-[#0d0d12] border border-white/10 rounded-xl p-5 shadow-xl">
         <div className="flex flex-wrap items-center justify-between gap-4">

@@ -14,6 +14,7 @@ import {
   Layers,
 } from "lucide-react";
 import { phishingScenarios } from "../data/mockData";
+import { GuestExplainerBanner } from "./GuestExplainerBanner";
 
 export const PhishingShield: React.FC = () => {
   const [selectedScenario, setSelectedScenario] = useState(phishingScenarios[0]);
@@ -64,6 +65,14 @@ export const PhishingShield: React.FC = () => {
 
   return (
     <div className="space-y-6">
+      {/* Guest Explainer Banner */}
+      <GuestExplainerBanner
+        title="AI Anti-Phishing Shield for Hospital Staff"
+        whatItDoes="Scans incoming messages using Gemini AI to protect doctors, nurses, and hospital accountants from fake emergency emails and ransomware links."
+        whyItMatters="85% of hospital ransomware attacks start with a busy nurse or doctor clicking a fake urgent email."
+        quickTryAction="Pick any scenario below (e.g. 'Urgent Shift Verification') and click 'AI Phishing Scan' at the top right to see AI dissect the threat in seconds."
+      />
+
       {/* Intro Header */}
       <div className="bg-[#0d0d12] border border-white/10 rounded-xl p-5 shadow-xl">
         <div className="flex flex-wrap items-center justify-between gap-4">

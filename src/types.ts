@@ -1,4 +1,5 @@
 export type TabType =
+  | "guest_overview"
   | "soc_dashboard"
   | "api_scanner"
   | "crypto_verifier"
@@ -56,8 +57,26 @@ export interface MedicalRecordDoc {
 export interface IoMTDevice {
   id: string;
   name: string;
-  type: "Infusion Pump" | "ICU Patient Monitor" | "Smart Ventilator" | "MRI/CT Gateway" | "Medication Dispenser";
-  department: "ICU Ward 4" | "Oncology" | "Emergency Dept" | "Radiology" | "Pharmacy";
+  type:
+    | "Infusion Pump"
+    | "ICU Patient Monitor"
+    | "Smart Ventilator"
+    | "MRI/CT Gateway"
+    | "Medication Dispenser"
+    | "Surgical Robot Hub"
+    | "Cardiac Pacemaker Gateway"
+    | "Neonatal Incubator"
+    | "Dialysis Machine";
+  department:
+    | "ICU Ward 4"
+    | "Oncology"
+    | "Emergency Dept"
+    | "Radiology"
+    | "Pharmacy"
+    | "Cardiology & Cath Lab"
+    | "Robotic Surgery OT"
+    | "Neonatal ICU (NICU)"
+    | "Pathology & Blood Bank";
   ipAddress: string;
   macAddress: string;
   firmwareVersion: string;

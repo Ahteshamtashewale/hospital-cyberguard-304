@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { TabType, ThreatEvent } from "./types";
 import { initialThreats } from "./data/mockData";
 import { Navbar } from "./components/Navbar";
+import { GuestOverview } from "./components/GuestOverview";
+import { GuestTourModal } from "./components/GuestTourModal";
+import { EvaluatorGuideModal } from "./components/EvaluatorGuideModal";
+import { PresenterTeleprompter } from "./components/PresenterTeleprompter";
 import { SocDashboard } from "./components/SocDashboard";
 import { ApiScanner } from "./components/ApiScanner";
 import { CryptoVerifier } from "./components/CryptoVerifier";
@@ -10,23 +14,15 @@ import { ZeroTrustIam } from "./components/ZeroTrustIam";
 import { IoMTHardwareSecurity } from "./components/IoMTHardwareSecurity";
 import { PrivacyGovernance } from "./components/PrivacyGovernance";
 import { GitHubExport } from "./components/GitHubExport";
-import {
-  Shield,
-  Activity,
-  AlertTriangle,
-  Radio,
-  FileCheck2,
-  MailWarning,
-  Lock,
-  Sliders,
-  GitBranch,
-  X,
-} from "lucide-react";
+import { Shield, X } from "lucide-react";
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<TabType>("soc_dashboard");
+  const [activeTab, setActiveTab] = useState<TabType>("guest_overview");
   const [threats, setThreats] = useState<ThreatEvent[]>(initialThreats);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [isTourOpen, setIsTourOpen] = useState<boolean>(false);
+  const [isEvaluatorGuideOpen, setIsEvaluatorGuideOpen] = useState<boolean>(false);
+  const [isTeleprompterOpen, setIsTeleprompterOpen] = useState<boolean>(false);
 
   const showToast = (msg: string) => {
     setToastMessage(msg);
@@ -89,6 +85,18 @@ STATUS: Intercepted by Hospital Zero-Trust AI Gateway. Awaiting Operator Action.
     showToast(`🚨 NEW CRITICAL ALARM: ${pick.vector} detected on ${pick.asset}`);
   };
 
+  const handleOpenTeleprompter = () => {
+    setIsEvaluatorGuideOpen(false);
+    setIsTourOpen(false);
+    setIsTeleprompterOpen(true);
+  };
+
+  const handleToggleTeleprompter = () => {
+    setIsEvaluatorGuideOpen(false);
+    setIsTourOpen(false);
+    setIsTeleprompterOpen((prev) => !prev);
+  };
+
   return (
     <div className="min-h-screen bg-[#0a0a0c] text-[#f8fafc] flex flex-col font-sans selection:bg-blue-600 selection:text-white">
       {/* Top Navigation */}
@@ -96,10 +104,36 @@ STATUS: Intercepted by Hospital Zero-Trust AI Gateway. Awaiting Operator Action.
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         threatCount={threats.filter((t) => t.status === "ACTIVE").length}
+        onOpenTour={() => {
+          setIsEvaluatorGuideOpen(false);
+          setIsTourOpen(true);
+        }}
+        onOpenEvaluatorGuide={() => {
+          setIsTourOpen(false);
+          setIsEvaluatorGuideOpen(true);
+        }}
+        onToggleTeleprompter={handleToggleTeleprompter}
+        isTeleprompterActive={isTeleprompterOpen}
       />
 
       {/* Main Container */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        {activeTab === "guest_overview" && (
+          <GuestOverview
+            onNavigateTab={setActiveTab}
+            onOpenTour={() => {
+              setIsEvaluatorGuideOpen(false);
+              setIsTourOpen(true);
+            }}
+            onOpenEvaluatorGuide={() => {
+              setIsTourOpen(false);
+              setIsEvaluatorGuideOpen(true);
+            }}
+            onStartTeleprompter={handleOpenTeleprompter}
+            threatCount={threats.filter((t) => t.status === "ACTIVE").length}
+          />
+        )}
+
         {activeTab === "soc_dashboard" && (
           <SocDashboard
             threats={threats}
@@ -123,6 +157,35 @@ STATUS: Intercepted by Hospital Zero-Trust AI Gateway. Awaiting Operator Action.
         {activeTab === "github_export" && <GitHubExport />}
       </main>
 
+      {/* Evaluator Guide & Presentation Modal */}
+      <EvaluatorGuideModal
+        isOpen={isEvaluatorGuideOpen}
+        onClose={() => setIsEvaluatorGuideOpen(false)}
+        onNavigateTab={(tab) => {
+          setActiveTab(tab);
+          setIsEvaluatorGuideOpen(false);
+        }}
+        onStartTeleprompter={handleOpenTeleprompter}
+      />
+
+      {/* Live Presenter Teleprompter (Bottom-Right Cue Cards) */}
+      <PresenterTeleprompter
+        isOpen={isTeleprompterOpen}
+        onClose={() => setIsTeleprompterOpen(false)}
+        activeTab={activeTab}
+        onNavigateTab={setActiveTab}
+      />
+
+      {/* Interactive Step-by-Step Guest Guided Tour Modal */}
+      <GuestTourModal
+        isOpen={isTourOpen}
+        onClose={() => setIsTourOpen(false)}
+        onNavigateTab={(tab) => {
+          setActiveTab(tab);
+          setIsTourOpen(false);
+        }}
+      />
+
       {/* Toast Notification */}
       {toastMessage && (
         <div className="fixed bottom-5 right-5 z-50 bg-[#111116] border border-blue-500/40 text-white px-4 py-3 rounded-xl shadow-[0_0_25px_rgba(37,99,235,0.25)] flex items-center space-x-3 text-xs max-w-md animate-slide-up">
@@ -132,7 +195,7 @@ STATUS: Intercepted by Hospital Zero-Trust AI Gateway. Awaiting Operator Action.
           <p className="flex-1 font-medium leading-relaxed text-slate-200">{toastMessage}</p>
           <button
             onClick={() => setToastMessage(null)}
-            className="text-white/40 hover:text-white shrink-0"
+            className="text-white/40 hover:text-white shrink-0 cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>

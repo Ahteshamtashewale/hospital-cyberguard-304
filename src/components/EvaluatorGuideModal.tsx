@@ -27,14 +27,12 @@ interface EvaluatorGuideModalProps {
   isOpen: boolean;
   onClose: () => void;
   onNavigateTab: (tab: TabType) => void;
-  onStartTeleprompter: () => void;
 }
 
 export const EvaluatorGuideModal: React.FC<EvaluatorGuideModalProps> = ({
   isOpen,
   onClose,
   onNavigateTab,
-  onStartTeleprompter,
 }) => {
   const [activeTab, setActiveTab] = useState<"script" | "qa" | "rubric" | "briefing">("script");
   const [copiedQuestionId, setCopiedQuestionId] = useState<string | null>(null);
@@ -259,18 +257,6 @@ export const EvaluatorGuideModal: React.FC<EvaluatorGuideModalProps> = ({
             <button
               onClick={() => {
                 handleStopSpeaking();
-                onStartTeleprompter();
-                onClose();
-              }}
-              className="hidden sm:flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-blue-600 hover:bg-blue-500 text-white shadow-md transition-all cursor-pointer"
-            >
-              <Play className="w-3.5 h-3.5 fill-current" />
-              <span>Launch Live Teleprompter</span>
-            </button>
-
-            <button
-              onClick={() => {
-                handleStopSpeaking();
                 onClose();
               }}
               className="p-1.5 rounded-lg text-white/40 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
@@ -307,27 +293,14 @@ export const EvaluatorGuideModal: React.FC<EvaluatorGuideModalProps> = ({
           {/* TAB 1: 3-Minute Presentation Script */}
           {activeTab === "script" && (
             <div className="space-y-6">
-              <div className="bg-amber-500/10 border border-amber-500/20 rounded-xl p-4 flex items-start justify-between gap-4">
-                <div className="space-y-1">
-                  <h3 className="text-xs font-mono font-bold text-amber-300 uppercase tracking-wider flex items-center space-x-1.5">
-                    <Sparkles className="w-4 h-4 text-amber-400" />
-                    <span>How to Present to Your Evaluator (Word-for-Word Script)</span>
-                  </h3>
-                  <p className="text-xs text-slate-300">
-                    Follow these 4 phases sequentially. Read the <strong>"Say This"</strong> script with confidence and perform the exact <strong>"Click This"</strong> action on screen.
-                  </p>
-                </div>
-
-                <button
-                  onClick={() => {
-                    onStartTeleprompter();
-                    onClose();
-                  }}
-                  className="shrink-0 flex items-center space-x-1.5 px-3 py-2 rounded-lg text-xs font-semibold bg-amber-600 hover:bg-amber-500 text-white shadow-md transition-all cursor-pointer"
-                >
-                  <Play className="w-3.5 h-3.5 fill-current" />
-                  <span>Start Live Teleprompter</span>
-                </button>
+              <div className="bg-amber-500/10 border border-amber-500/20 rounded-xl p-4">
+                <h3 className="text-xs font-mono font-bold text-amber-300 uppercase tracking-wider flex items-center space-x-1.5">
+                  <Sparkles className="w-4 h-4 text-amber-400" />
+                  <span>How to Present to Your Evaluator (Word-for-Word Script)</span>
+                </h3>
+                <p className="text-xs text-slate-300 mt-1">
+                  Follow these 4 phases sequentially. Read the <strong>"Say This"</strong> script with confidence, or click <strong>"Listen (Voice)"</strong> to hear it spoken aloud, and perform the exact <strong>"Click This"</strong> action on screen.
+                </p>
               </div>
 
               <div className="space-y-4">

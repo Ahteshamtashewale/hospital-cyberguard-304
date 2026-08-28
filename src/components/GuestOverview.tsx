@@ -39,7 +39,6 @@ interface GuestOverviewProps {
   onNavigateTab: (tab: TabType) => void;
   onOpenTour: () => void;
   onOpenEvaluatorGuide: () => void;
-  onStartTeleprompter: () => void;
   threatCount: number;
 }
 
@@ -47,7 +46,6 @@ export const GuestOverview: React.FC<GuestOverviewProps> = ({
   onNavigateTab,
   onOpenTour,
   onOpenEvaluatorGuide,
-  onStartTeleprompter,
   threatCount,
 }) => {
   const [activeStory, setActiveStory] = useState<number>(0);

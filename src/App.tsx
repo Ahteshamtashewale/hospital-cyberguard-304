@@ -5,7 +5,6 @@ import { Navbar } from "./components/Navbar";
 import { GuestOverview } from "./components/GuestOverview";
 import { GuestTourModal } from "./components/GuestTourModal";
 import { EvaluatorGuideModal } from "./components/EvaluatorGuideModal";
-import { PresenterTeleprompter } from "./components/PresenterTeleprompter";
 import { SocDashboard } from "./components/SocDashboard";
 import { ApiScanner } from "./components/ApiScanner";
 import { CryptoVerifier } from "./components/CryptoVerifier";
@@ -22,7 +21,6 @@ export default function App() {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [isTourOpen, setIsTourOpen] = useState<boolean>(false);
   const [isEvaluatorGuideOpen, setIsEvaluatorGuideOpen] = useState<boolean>(false);
-  const [isTeleprompterOpen, setIsTeleprompterOpen] = useState<boolean>(false);
 
   const showToast = (msg: string) => {
     setToastMessage(msg);
@@ -85,18 +83,6 @@ STATUS: Intercepted by Hospital Zero-Trust AI Gateway. Awaiting Operator Action.
     showToast(`🚨 NEW CRITICAL ALARM: ${pick.vector} detected on ${pick.asset}`);
   };
 
-  const handleOpenTeleprompter = () => {
-    setIsEvaluatorGuideOpen(false);
-    setIsTourOpen(false);
-    setIsTeleprompterOpen(true);
-  };
-
-  const handleToggleTeleprompter = () => {
-    setIsEvaluatorGuideOpen(false);
-    setIsTourOpen(false);
-    setIsTeleprompterOpen((prev) => !prev);
-  };
-
   return (
     <div className="min-h-screen bg-[#0a0a0c] text-[#f8fafc] flex flex-col font-sans selection:bg-blue-600 selection:text-white">
       {/* Top Navigation */}
@@ -112,8 +98,6 @@ STATUS: Intercepted by Hospital Zero-Trust AI Gateway. Awaiting Operator Action.
           setIsTourOpen(false);
           setIsEvaluatorGuideOpen(true);
         }}
-        onToggleTeleprompter={handleToggleTeleprompter}
-        isTeleprompterActive={isTeleprompterOpen}
       />
 
       {/* Main Container */}
@@ -129,7 +113,6 @@ STATUS: Intercepted by Hospital Zero-Trust AI Gateway. Awaiting Operator Action.
               setIsTourOpen(false);
               setIsEvaluatorGuideOpen(true);
             }}
-            onStartTeleprompter={handleOpenTeleprompter}
             threatCount={threats.filter((t) => t.status === "ACTIVE").length}
           />
         )}
@@ -165,15 +148,6 @@ STATUS: Intercepted by Hospital Zero-Trust AI Gateway. Awaiting Operator Action.
           setActiveTab(tab);
           setIsEvaluatorGuideOpen(false);
         }}
-        onStartTeleprompter={handleOpenTeleprompter}
-      />
-
-      {/* Live Presenter Teleprompter (Bottom-Right Cue Cards) */}
-      <PresenterTeleprompter
-        isOpen={isTeleprompterOpen}
-        onClose={() => setIsTeleprompterOpen(false)}
-        activeTab={activeTab}
-        onNavigateTab={setActiveTab}
       />
 
       {/* Interactive Step-by-Step Guest Guided Tour Modal */}

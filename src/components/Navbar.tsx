@@ -21,8 +21,6 @@ interface NavbarProps {
   threatCount: number;
   onOpenTour: () => void;
   onOpenEvaluatorGuide: () => void;
-  onToggleTeleprompter: () => void;
-  isTeleprompterActive: boolean;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -31,8 +29,6 @@ export const Navbar: React.FC<NavbarProps> = ({
   threatCount,
   onOpenTour,
   onOpenEvaluatorGuide,
-  onToggleTeleprompter,
-  isTeleprompterActive,
 }) => {
   const navItems: {
     id: TabType;
@@ -129,20 +125,6 @@ export const Navbar: React.FC<NavbarProps> = ({
             >
               <GraduationCap className="w-4 h-4 text-amber-400" />
               <span>Evaluator Guide & Script</span>
-            </button>
-
-            {/* Teleprompter Toggle */}
-            <button
-              onClick={onToggleTeleprompter}
-              className={`hidden sm:flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg border text-xs font-semibold transition-all cursor-pointer ${
-                isTeleprompterActive
-                  ? "bg-amber-400 text-black border-amber-300 shadow-[0_0_15px_rgba(251,191,36,0.4)]"
-                  : "bg-white/5 hover:bg-white/10 text-white/70 hover:text-white border-white/10"
-              }`}
-              title="Toggle Live Presenter Teleprompter"
-            >
-              <Volume2 className="w-3.5 h-3.5" />
-              <span>{isTeleprompterActive ? "Teleprompter Active" : "Teleprompter"}</span>
             </button>
 
             {/* Guided Tour */}
